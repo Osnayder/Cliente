@@ -293,23 +293,23 @@ public class VSesion extends javax.swing.JFrame {
         
         String[] lista = new String[4];
         int IdBusqueda = 0;
-        boolean Bandera = true, b = false;
+        lisUsuario = archivo.getListaUsuarios();
+        lisPublicacion = archivo.getListaPublicaciones();
+        lisComentario = archivo.getListaComentarios();
+        lisAlbum = archivo.getListaAlbums();
+        lisFoto = archivo.getListaFotos();
+        IdBusqueda = Integer.parseInt(campoID.getText());
+        boolean Bandera = true, B2 = false;
         
+        System.out.println(IdBusqueda);
         for(int i=0; i<lisUsuario.size(); i++){
               if(IdBusqueda==lisUsuario.get(i).getId()){
-                  modeloPublicaciones.addRow(lisPublicacion.get(i).getExtraerTodo());
-                  b = true;
+                  B2 = true;
               }
         }
         
-        if(this.esNumero(campoID.getText()) && b){
-           IdBusqueda = Integer.parseInt(campoID.getText());
-           
-            lisUsuario = archivo.getListaUsuarios();
-            lisPublicacion = archivo.getListaPublicaciones();
-            lisComentario = archivo.getListaComentarios();
-            lisAlbum = archivo.getListaAlbums();
-            lisFoto = archivo.getListaFotos();
+        if(this.esNumero(campoID.getText())){
+            
            
             modeloPublicaciones.setRowCount(0);
             modeloComentarios.setRowCount(0);
@@ -317,21 +317,23 @@ public class VSesion extends javax.swing.JFrame {
             modeloFotos.setRowCount(0);
            
            for(int i=0; i<lisUsuario.size(); i++){
-              if(IdBusqueda==lisPublicacion.get(i).getId()){
-                  modeloPublicaciones.addRow(lisPublicacion.get(i).getExtraerTodo());
-                  Bandera = false;
-              }
-              if(IdBusqueda==lisComentario.get(i).getId()){
+               
+               if(B2){
+                   if(IdBusqueda==lisPublicacion.get(i).getId()){
+                    modeloPublicaciones.addRow(lisPublicacion.get(i).getExtraerTodo());
+                     Bandera = false;
+                }
+                if(IdBusqueda==lisComentario.get(i).getId()){
                   modeloComentarios.addRow(lisComentario.get(i).getExtraerTodo());
                   Bandera = false;
-              }
+                }
               
-              if(IdBusqueda==lisAlbum.get(i).getId()){
+                if(IdBusqueda==lisAlbum.get(i).getId()){
                   modeloAlbums.addRow(lisAlbum.get(i).getExtraerTodo());
                   Bandera = false;
-              }
+                }
               
-              if(IdBusqueda==lisFoto.get(i).getId()){
+                if(IdBusqueda==lisFoto.get(i).getId()){
                    modeloFotos.addRow(lisFoto.get(i).getExtraerTodo());
                    Bandera = false;
                    Image imagen = null;
@@ -347,8 +349,9 @@ public class VSesion extends javax.swing.JFrame {
                     } catch (MalformedURLException ex) {
                         Logger.getLogger(VSesion.class.getName()).log(Level.SEVERE, null, ex);
                     }
-              }
-              
+                    }
+               }
+           
            }
            if(Bandera){
                JOptionPane.showMessageDialog(this," No se Encontraron Resultados Para el Criterio de Busqueda Especificado",
