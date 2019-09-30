@@ -293,9 +293,16 @@ public class VSesion extends javax.swing.JFrame {
         
         String[] lista = new String[4];
         int IdBusqueda = 0;
-        boolean Bandera = true;
+        boolean Bandera = true, b = false;
         
-        if(this.esNumero(campoID.getText())){
+        for(int i=0; i<lisUsuario.size(); i++){
+              if(IdBusqueda==lisUsuario.get(i).getId()){
+                  modeloPublicaciones.addRow(lisPublicacion.get(i).getExtraerTodo());
+                  b = true;
+              }
+        }
+        
+        if(this.esNumero(campoID.getText()) && b){
            IdBusqueda = Integer.parseInt(campoID.getText());
            
             lisUsuario = archivo.getListaUsuarios();
