@@ -1,6 +1,7 @@
 package edu.cecar.Controlador;
 
 import edu.cecar.Modelo.Archivo;
+import java.io.File;
 
 /** Clase: Cliente
  * 
@@ -17,8 +18,11 @@ import edu.cecar.Modelo.Archivo;
 public class Cliente {
     public Cliente(String IPServidor, int puerto) {
 	try {
-            SocketObjeto socketObjeto = new SocketObjeto(IPServidor, puerto);
-            String ruta = "ArchivoPrueba/";
+            SocketObjeto socketObjeto = new SocketObjeto(IPServidor, puerto); 
+            File directorio=new File("Cliente"); // crea directorio
+            directorio.mkdir();
+         
+            String ruta = directorio.getName();
             System.out.println("Me conecte");
 			
             //*** Se inicia la descarga de un  archivo ***
@@ -27,7 +31,7 @@ public class Cliente {
             socketObjeto.getSalida().writeObject(archivo);
             Object object = socketObjeto.getEntrada().readObject();
             archivo =(Archivo)object;  
-            Utilidades.escribirAchivo(ruta + nombreArchivo, archivo.getBytes());
+            Utilidades.escribirAchivo(ruta+ "\\" + nombreArchivo, archivo.getBytes());
             System.out.println("Archivo Descargado del Servidor con exito");
 
             Thread.sleep(1000); //Se bloquea por lo explicado en clase

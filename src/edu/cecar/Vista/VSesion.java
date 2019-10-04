@@ -13,8 +13,6 @@ package edu.cecar.Vista;
  * Copyrigth: CECAR
  */
 
-
-
 import edu.cecar.Controlador.CargarJSONarchivo;
 import edu.cecar.Controlador.Cliente;
 import edu.cecar.Modelo.Album;
@@ -40,7 +38,6 @@ import javax.swing.table.DefaultTableModel;
 public class VSesion extends javax.swing.JFrame {
 
         JSONarchivo archivo;
-        
         Object[][] datos = {};
        
         String[] cPublicacaiones = {" ID publicacion","ID Usuario", " Titulo ", " Cuerpo"};
@@ -55,10 +52,10 @@ public class VSesion extends javax.swing.JFrame {
         DefaultTableModel modeloAlbums = new DefaultTableModel(datos,cAlbumes);
         DefaultTableModel modeloFotos = new DefaultTableModel(datos,cFotos);
     
-    public VSesion() {
+    public VSesion(String ip, int puerto) {
         initComponents();
-        new Cliente("0.0.0.0", 17000);
-        archivo = (new CargarJSONarchivo("ArchivoPrueba/ArchivosJSON.dat").getJSONarchivo());
+            Cliente conectarServidor = new Cliente(ip,puerto);
+            archivo = (new CargarJSONarchivo("Cliente/ArchivosJSON.dat").getJSONarchivo());
     }
 
     @SuppressWarnings("unchecked")
@@ -263,12 +260,12 @@ public class VSesion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel1)
-                .addContainerGap(287, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1220, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,7 +307,6 @@ public class VSesion extends javax.swing.JFrame {
         
         if(this.esNumero(campoID.getText())){
             
-           
             modeloPublicaciones.setRowCount(0);
             modeloComentarios.setRowCount(0);
             modeloAlbums.setRowCount(0);
@@ -436,7 +432,6 @@ public class VSesion extends javax.swing.JFrame {
                         }
                     }
                     break;
-                    //Id, Nombre, Apellido, Genero, Estado, Telefono, Dirrección, Correo, Sitio Web, Dob
            case 4: ordenado.clear();  
                     modeloUsuarios.setRowCount(0);
                     for(int i = 0; i<lisUsuario.size(); i++){
@@ -561,39 +556,6 @@ public class VSesion extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public static void main(String args[]) {
-        
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VSesion().setVisible(true);
-            }
-        });
-        
-        
-    }
-    
     public boolean esNumero(String cadena){
         boolean resultado;
         try {

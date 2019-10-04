@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /** Clase: CargarJSONArchivo
  * 
@@ -29,18 +30,13 @@ public class CargarJSONarchivo {
         try {
             ois = new ObjectInputStream(new FileInputStream(ruta));
             archivo = (JSONarchivo)ois.readObject();
+            ois.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(CargarJSONarchivo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al Cargar Archivo: "+ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(CargarJSONarchivo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al Cargar Archivo: "+ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CargarJSONarchivo.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                ois.close();
-            } catch (IOException ex) {
-                Logger.getLogger(CargarJSONarchivo.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            JOptionPane.showMessageDialog(null,"Error al Cargar Archivo: "+ex.getMessage());
         }
     }
     
