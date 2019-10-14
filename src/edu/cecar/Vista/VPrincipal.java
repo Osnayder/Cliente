@@ -170,13 +170,14 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ArrayList<UsuarioSistema> listaUsuarios = new ArrayList<>();
         boolean acceso = true;
+        
         try {
             ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(new File("Usuarios.dat")));
             listaUsuarios = (ArrayList<UsuarioSistema>)entrada.readObject();
             for(int i=0; i<listaUsuarios.size(); i++){
                 if(listaUsuarios.get(i).getUsuario().equals(jTextField1.getText()) 
                    && listaUsuarios.get(i).getContrasena().equals(jPasswordField1.getText())){
-                    new VSesion("192.168.0.16",17000).setVisible(true);
+                    new VSesion(conexion.getIp(),(int)conexion.getPuerto()).setVisible(true);
                     this.setVisible(false);
                     acceso = false;
                     break;
