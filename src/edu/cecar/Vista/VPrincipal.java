@@ -176,7 +176,7 @@ public class VPrincipal extends javax.swing.JFrame {
             for(int i=0; i<listaUsuarios.size(); i++){
                 if(listaUsuarios.get(i).getUsuario().equals(jTextField1.getText()) 
                    && listaUsuarios.get(i).getContrasena().equals(jPasswordField1.getText())){
-                    new VSesion(conexion.getIp(),conexion.getPuerto()).setVisible(true);
+                    new VSesion("192.168.0.16",17000).setVisible(true);
                     this.setVisible(false);
                     acceso = false;
                     break;
